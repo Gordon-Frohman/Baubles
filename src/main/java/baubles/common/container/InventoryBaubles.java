@@ -3,6 +3,7 @@ package baubles.common.container;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -267,13 +268,46 @@ public class InventoryBaubles implements IInventory {
 			}
 		}
 	}
-	
+
+// --- EnderIO SoulBound enchant support
+
+	private static int soulBoundID = -6;
+
+	public static int getSoulBoundID() {
+		if (soulBoundID == -6) setSoulBoundID();
+		return soulBoundID;
+	}
+
+	private static void setSoulBoundID() {
+		for (Enchantment ench : Enchantment.enchantmentsList) {
+			if (ench != null && ench.getName().equals("enchantment.enderio.soulBound")) {
+				soulBoundID = ench.effectId;
+				return;
+			}
+		}
+		soulBoundID = -1;
+	}
+
+	public static boolean isSoulBounded(ItemStack stack) {
+		int soulBound = getSoulBoundID();
+		NBTTagList stackEnch = stack.getEnchantmentTagList();
+		if (soulBound >= 0 && stackEnch != null) {
+			for (int i = 0; i < stackEnch.tagCount(); i++) {
+				int id = stackEnch.getCompoundTagAt(i).getInteger("id");
+				if (id == soulBound) return true;
+			}
+		}
+		return false;
+	}
+
+// ---
+
 	public void dropItemsAt(ArrayList<EntityItem> drops, Entity e) {
 		for (int i = 0; i < 4; ++i) {
-			if (this.stackList[i] != null) {
+			if (this.stackList[i] != null && !isSoulBounded(this.stackList[i])) {
 				EntityItem ei = new EntityItem(e.worldObj,
-						e.posX, e.posY + e.getEyeHeight(), e.posZ,
-						this.stackList[i].copy());
+					e.posX, e.posY + e.getEyeHeight(), e.posZ,
+					this.stackList[i].copy());
 				ei.delayBeforeCanPickup = 40;
 				float f1 = e.worldObj.rand.nextFloat() * 0.5F;
 				float f2 = e.worldObj.rand.nextFloat() * (float) Math.PI * 2.0F;
