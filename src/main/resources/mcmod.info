@@ -1,10 +1,10 @@
 [
 {
-  "modid": "Baubles",
-  "name": "Baubles",
+  "modid": "${modId}",
+  "name": "${modName}",
   "description": "Adding a touch of bling to Minecraft",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
+  "version": "${modVersion}",
+  "mcversion": "${minecraftVersion}",
   "logoFile": "BLogo.png",
   "url": "http://www.minecraftforum.net/topic/2535073-baubles",
   "updateUrl": "",
