@@ -16,23 +16,24 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class KeyHandler {
-	
-	public KeyBinding key = new KeyBinding(StatCollector.translateToLocal("keybind.baublesinventory"), 
-			Keyboard.KEY_B, "key.categories.inventory");
-	
-	public KeyHandler() {
-		 ClientRegistry.registerKeyBinding(key);
-	}
 
-	@SideOnly(value=Side.CLIENT)
-	@SubscribeEvent
-	public void playerTick(PlayerTickEvent event) {
-		if (event.side == Side.SERVER) return;
-		if (event.phase == Phase.START ) {
-			if (key.getIsKeyPressed() && FMLClientHandler.instance().getClient().inGameHasFocus) {
-					PacketHandler.INSTANCE.sendToServer(new PacketOpenBaublesInventory(event.player));
-			}
-		}
-	}
+    public KeyBinding key = new KeyBinding(
+            StatCollector.translateToLocal("keybind.baublesinventory"),
+            Keyboard.KEY_B,
+            "key.categories.inventory");
+
+    public KeyHandler() {
+        ClientRegistry.registerKeyBinding(key);
+    }
+
+    @SideOnly(value = Side.CLIENT)
+    @SubscribeEvent
+    public void playerTick(PlayerTickEvent event) {
+        if (event.side == Side.SERVER) return;
+        if (event.phase == Phase.START) {
+            if (key.getIsKeyPressed() && FMLClientHandler.instance().getClient().inGameHasFocus) {
+                PacketHandler.INSTANCE.sendToServer(new PacketOpenBaublesInventory(event.player));
+            }
+        }
+    }
 }
-
