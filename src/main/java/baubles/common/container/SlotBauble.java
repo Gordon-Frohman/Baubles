@@ -24,7 +24,8 @@ public class SlotBauble extends Slot {
     public boolean isItemValid(ItemStack stack) {
         return stack != null && stack.getItem() != null
                 && stack.getItem() instanceof IBauble
-                && (((IBauble) stack.getItem()).getBaubleType(stack) == this.type || ((IBauble) stack.getItem()).getBaubleType(stack) == BaubleType.UNIVERSAL)
+                && (((IBauble) stack.getItem()).getBaubleType(stack) == this.type
+                        || ((IBauble) stack.getItem()).getBaubleType(stack) == BaubleType.UNIVERSAL)
                 && ((IBauble) stack.getItem()).canEquip(stack, ((InventoryBaubles) this.inventory).player.get());
     }
 
