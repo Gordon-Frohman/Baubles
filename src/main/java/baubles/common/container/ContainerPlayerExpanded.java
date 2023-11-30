@@ -156,7 +156,8 @@ public class ContainerPlayerExpanded extends Container {
                                 }
                             } else
                 if (itemstack.getItem() instanceof IBauble
-                        && ((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.AMULET
+                        && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.AMULET
+                                || ((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.UNIVERSAL)
                         && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
                         && !((Slot) this.inventorySlots.get(9)).getHasStack()) {
                             int j = 9;
@@ -165,7 +166,8 @@ public class ContainerPlayerExpanded extends Container {
                             }
                         } else
                     if (par2 > 11 && itemstack.getItem() instanceof IBauble
-                            && ((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.RING
+                            && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.RING
+                                    || ((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.UNIVERSAL)
                             && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
                             && !((Slot) this.inventorySlots.get(10)).getHasStack()) {
                                 int j = 10;
@@ -174,7 +176,9 @@ public class ContainerPlayerExpanded extends Container {
                                 }
                             } else
                         if (par2 > 11 && itemstack.getItem() instanceof IBauble
-                                && ((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.RING
+                                && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.RING
+                                        || ((IBauble) itemstack.getItem()).getBaubleType(itemstack)
+                                                == BaubleType.UNIVERSAL)
                                 && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
                                 && !((Slot) this.inventorySlots.get(11)).getHasStack()) {
                                     int j = 11;
@@ -183,7 +187,9 @@ public class ContainerPlayerExpanded extends Container {
                                     }
                                 } else
                             if (itemstack.getItem() instanceof IBauble
-                                    && ((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.BELT
+                                    && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.BELT
+                                            || ((IBauble) itemstack.getItem()).getBaubleType(itemstack)
+                                                    == BaubleType.UNIVERSAL)
                                     && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
                                     && !((Slot) this.inventorySlots.get(12)).getHasStack()) {
                                         int j = 12;

@@ -9,13 +9,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
+import com.google.common.io.Files;
+
 import baubles.api.IBauble;
 import baubles.common.Baubles;
 import baubles.common.Config;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
-
-import com.google.common.io.Files;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class EventHandlerEntity {
