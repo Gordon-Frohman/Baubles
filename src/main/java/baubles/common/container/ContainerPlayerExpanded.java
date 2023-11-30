@@ -146,33 +146,27 @@ public class ContainerPlayerExpanded extends Container {
                 if (!this.mergeItemStack(itemstack1, 9 + 4, 45 + 4, false)) {
                     return null;
                 }
-            } else if (par2 >= 9 && par2 < 13) {
-                if (!this.mergeItemStack(itemstack1, 9 + 4, 45 + 4, false)) {
-                    return null;
-                }
-            } else if (itemstack.getItem() instanceof ItemArmor
-                    && !((Slot) this.inventorySlots.get(5 + ((ItemArmor) itemstack.getItem()).armorType))
-                            .getHasStack()) {
-                                int j = 5 + ((ItemArmor) itemstack.getItem()).armorType;
+            } else if (par2 >= 9 && par2 < 13
+                    && itemstack.getItem() instanceof IBauble
+                    && ((IBauble) itemstack.getItem()).canUnequip(itemstack, thePlayer)) {
+                        if (!this.mergeItemStack(itemstack1, 9 + 4, 45 + 4, false)) {
+                            return null;
+                        }
+                    } else
+                if (itemstack.getItem() instanceof ItemArmor
+                        && !((Slot) this.inventorySlots.get(5 + ((ItemArmor) itemstack.getItem()).armorType))
+                                .getHasStack()) {
+                                    int j = 5 + ((ItemArmor) itemstack.getItem()).armorType;
 
-                                if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
-                                    return null;
-                                }
-                            } else
-                if (itemstack.getItem() instanceof IBauble
-                        && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.AMULET)
-                        && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
-                        && !((Slot) this.inventorySlots.get(9)).getHasStack()) {
-                            int j = 9;
-                            if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
-                                return null;
-                            }
-                        } else
-                    if (par2 > 11 && itemstack.getItem() instanceof IBauble
-                            && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.RING)
+                                    if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
+                                        return null;
+                                    }
+                                } else
+                    if (itemstack.getItem() instanceof IBauble
+                            && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.AMULET)
                             && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
-                            && !((Slot) this.inventorySlots.get(10)).getHasStack()) {
-                                int j = 10;
+                            && !((Slot) this.inventorySlots.get(9)).getHasStack()) {
+                                int j = 9;
                                 if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
                                     return null;
                                 }
@@ -180,55 +174,64 @@ public class ContainerPlayerExpanded extends Container {
                         if (par2 > 11 && itemstack.getItem() instanceof IBauble
                                 && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.RING)
                                 && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
-                                && !((Slot) this.inventorySlots.get(11)).getHasStack()) {
-                                    int j = 11;
+                                && !((Slot) this.inventorySlots.get(10)).getHasStack()) {
+                                    int j = 10;
                                     if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
                                         return null;
                                     }
                                 } else
-                            if (itemstack.getItem() instanceof IBauble
-                                    && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.BELT)
+                            if (par2 > 11 && itemstack.getItem() instanceof IBauble
+                                    && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.RING)
                                     && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
-                                    && !((Slot) this.inventorySlots.get(12)).getHasStack()) {
-                                        int j = 12;
+                                    && !((Slot) this.inventorySlots.get(11)).getHasStack()) {
+                                        int j = 11;
                                         if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
                                             return null;
                                         }
                                     } else
                                 if (itemstack.getItem() instanceof IBauble
-                                        && ((IBauble) itemstack.getItem()).getBaubleType(itemstack)
-                                                == BaubleType.UNIVERSAL
-                                        && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)) {
-                                            int j = -1;
-                                            for (int k = 9; k <= 12; k++)
-                                                if (!((Slot) this.inventorySlots.get(k)).getHasStack()) {
-                                                    j = k;
-                                                    break;
-                                                }
-                                            if (j == -1) return null;
-                                            if (itemstack.stackSize > 1) {
-                                                ItemStack singleItem = itemstack.copy();
-                                                singleItem.stackSize = 1;
-                                                if (!this.mergeItemStack(singleItem, j, j + 1, false)) return null;
-                                                else if (--itemstack1.stackSize == 0) {
-                                                    ((Slot) this.inventorySlots.get(j)).putStack(null);
-                                                }
-                                            }
+                                        && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.BELT)
+                                        && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
+                                        && !((Slot) this.inventorySlots.get(12)).getHasStack()) {
+                                            int j = 12;
                                             if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
                                                 return null;
                                             }
                                         } else
-                                    if (par2 >= 9 + 4 && par2 < 36 + 4) {
-                                        if (!this.mergeItemStack(itemstack1, 36 + 4, 45 + 4, false)) {
+                                    if (itemstack.getItem() instanceof IBauble
+                                            && ((IBauble) itemstack.getItem()).getBaubleType(itemstack)
+                                                    == BaubleType.UNIVERSAL
+                                            && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)) {
+                                                int j = -1;
+                                                for (int k = 9; k <= 12; k++)
+                                                    if (!((Slot) this.inventorySlots.get(k)).getHasStack()) {
+                                                        j = k;
+                                                        break;
+                                                    }
+                                                if (j == -1) return null;
+                                                if (itemstack.stackSize > 1) {
+                                                    ItemStack singleItem = itemstack.copy();
+                                                    singleItem.stackSize = 1;
+                                                    if (!this.mergeItemStack(singleItem, j, j + 1, false)) return null;
+                                                    else if (--itemstack1.stackSize == 0) {
+                                                        ((Slot) this.inventorySlots.get(j)).putStack(null);
+                                                    }
+                                                }
+                                                if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
+                                                    return null;
+                                                }
+                                            } else
+                                        if (par2 >= 9 + 4 && par2 < 36 + 4) {
+                                            if (!this.mergeItemStack(itemstack1, 36 + 4, 45 + 4, false)) {
+                                                return null;
+                                            }
+                                        } else if (par2 >= 36 + 4 && par2 < 45 + 4) {
+                                            if (!this.mergeItemStack(itemstack1, 9 + 4, 36 + 4, false)) {
+                                                return null;
+                                            }
+                                        } else if (!this.mergeItemStack(itemstack1, 9 + 4, 45 + 4, false, slot)) {
                                             return null;
                                         }
-                                    } else if (par2 >= 36 + 4 && par2 < 45 + 4) {
-                                        if (!this.mergeItemStack(itemstack1, 9 + 4, 36 + 4, false)) {
-                                            return null;
-                                        }
-                                    } else if (!this.mergeItemStack(itemstack1, 9 + 4, 45 + 4, false, slot)) {
-                                        return null;
-                                    }
 
             if (itemstack1.stackSize == 0) {
                 slot.putStack((ItemStack) null);
