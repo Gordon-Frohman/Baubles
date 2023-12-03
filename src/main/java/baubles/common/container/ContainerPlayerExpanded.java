@@ -116,7 +116,7 @@ public class ContainerPlayerExpanded extends Container {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
+    public boolean canInteractWith(EntityPlayer entityPlayer) {
         return true;
     }
 
@@ -124,29 +124,29 @@ public class ContainerPlayerExpanded extends Container {
      * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
      */
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
+    public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int stackSlot) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.inventorySlots.get(par2);
+        Slot slot = (Slot) this.inventorySlots.get(stackSlot);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (par2 == 0) {
+            if (stackSlot == 0) {
                 if (!this.mergeItemStack(itemstack1, 9 + 4, 45 + 4, true)) {
                     return null;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
-            } else if (par2 >= 1 && par2 < 5) {
+            } else if (stackSlot >= 1 && stackSlot < 5) {
                 if (!this.mergeItemStack(itemstack1, 9 + 4, 45 + 4, false)) {
                     return null;
                 }
-            } else if (par2 >= 5 && par2 < 9) {
+            } else if (stackSlot >= 5 && stackSlot < 9) {
                 if (!this.mergeItemStack(itemstack1, 9 + 4, 45 + 4, false)) {
                     return null;
                 }
-            } else if (par2 >= 9 && par2 < 13
+            } else if (stackSlot >= 9 && stackSlot < 13
                     && itemstack.getItem() instanceof IBauble
                     && ((IBauble) itemstack.getItem()).canUnequip(itemstack, thePlayer)) {
                         if (!this.mergeItemStack(itemstack1, 9 + 4, 45 + 4, false)) {
@@ -156,9 +156,9 @@ public class ContainerPlayerExpanded extends Container {
                 if (itemstack.getItem() instanceof ItemArmor
                         && !((Slot) this.inventorySlots.get(5 + ((ItemArmor) itemstack.getItem()).armorType))
                                 .getHasStack()) {
-                                    int j = 5 + ((ItemArmor) itemstack.getItem()).armorType;
+                                    int transferSlot = 5 + ((ItemArmor) itemstack.getItem()).armorType;
 
-                                    if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
+                                    if (!this.mergeItemStack(itemstack1, transferSlot, transferSlot + 1, false)) {
                                         return null;
                                     }
                                 } else
@@ -166,26 +166,26 @@ public class ContainerPlayerExpanded extends Container {
                             && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.AMULET)
                             && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
                             && !((Slot) this.inventorySlots.get(9)).getHasStack()) {
-                                int j = 9;
-                                if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
+                                int transferSlot = 9;
+                                if (!this.mergeItemStack(itemstack1, transferSlot, transferSlot + 1, false)) {
                                     return null;
                                 }
                             } else
-                        if (par2 > 11 && itemstack.getItem() instanceof IBauble
+                        if (stackSlot > 11 && itemstack.getItem() instanceof IBauble
                                 && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.RING)
                                 && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
                                 && !((Slot) this.inventorySlots.get(10)).getHasStack()) {
-                                    int j = 10;
-                                    if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
+                                    int transferSlot = 10;
+                                    if (!this.mergeItemStack(itemstack1, transferSlot, transferSlot + 1, false)) {
                                         return null;
                                     }
                                 } else
-                            if (par2 > 11 && itemstack.getItem() instanceof IBauble
+                            if (stackSlot > 11 && itemstack.getItem() instanceof IBauble
                                     && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.RING)
                                     && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
                                     && !((Slot) this.inventorySlots.get(11)).getHasStack()) {
-                                        int j = 11;
-                                        if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
+                                        int transferSlot = 11;
+                                        if (!this.mergeItemStack(itemstack1, transferSlot, transferSlot + 1, false)) {
                                             return null;
                                         }
                                     } else
@@ -193,8 +193,8 @@ public class ContainerPlayerExpanded extends Container {
                                         && (((IBauble) itemstack.getItem()).getBaubleType(itemstack) == BaubleType.BELT)
                                         && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
                                         && !((Slot) this.inventorySlots.get(12)).getHasStack()) {
-                                            int j = 12;
-                                            if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
+                                            int transferSlot = 12;
+                                            if (!this.mergeItemStack(itemstack1, transferSlot, transferSlot + 1, false)) {
                                                 return null;
                                             }
                                         } else
@@ -202,30 +202,30 @@ public class ContainerPlayerExpanded extends Container {
                                             && ((IBauble) itemstack.getItem()).getBaubleType(itemstack)
                                                     == BaubleType.UNIVERSAL
                                             && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)) {
-                                                int j = -1;
+                                                int transferSlot = -1;
                                                 for (int k = 9; k <= 12; k++)
                                                     if (!((Slot) this.inventorySlots.get(k)).getHasStack()) {
-                                                        j = k;
+                                                        transferSlot = k;
                                                         break;
                                                     }
-                                                if (j == -1) return null;
+                                                if (transferSlot == -1) return null;
                                                 if (itemstack.stackSize > 1) {
                                                     ItemStack singleItem = itemstack.copy();
                                                     singleItem.stackSize = 1;
-                                                    if (!this.mergeItemStack(singleItem, j, j + 1, false)) return null;
+                                                    if (!this.mergeItemStack(singleItem, transferSlot, transferSlot + 1, false)) return null;
                                                     else if (--itemstack1.stackSize == 0) {
-                                                        ((Slot) this.inventorySlots.get(j)).putStack(null);
+                                                        ((Slot) this.inventorySlots.get(transferSlot)).putStack(null);
                                                     }
                                                 }
-                                                if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
+                                                if (!this.mergeItemStack(itemstack1, transferSlot, transferSlot + 1, false)) {
                                                     return null;
                                                 }
                                             } else
-                                        if (par2 >= 9 + 4 && par2 < 36 + 4) {
+                                        if (stackSlot >= 9 + 4 && stackSlot < 36 + 4) {
                                             if (!this.mergeItemStack(itemstack1, 36 + 4, 45 + 4, false)) {
                                                 return null;
                                             }
-                                        } else if (par2 >= 36 + 4 && par2 < 45 + 4) {
+                                        } else if (stackSlot >= 36 + 4 && stackSlot < 45 + 4) {
                                             if (!this.mergeItemStack(itemstack1, 9 + 4, 36 + 4, false)) {
                                                 return null;
                                             }
@@ -243,7 +243,7 @@ public class ContainerPlayerExpanded extends Container {
                 return null;
             }
 
-            slot.onPickupFromSlot(par1EntityPlayer, itemstack1);
+            slot.onPickupFromSlot(entityPlayer, itemstack1);
         }
 
         return itemstack;
