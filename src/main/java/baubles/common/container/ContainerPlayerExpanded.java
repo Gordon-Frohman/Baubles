@@ -194,7 +194,11 @@ public class ContainerPlayerExpanded extends Container {
                                         && ((IBauble) itemstack.getItem()).canEquip(itemstack, thePlayer)
                                         && !((Slot) this.inventorySlots.get(12)).getHasStack()) {
                                             int transferSlot = 12;
-                                            if (!this.mergeItemStack(itemstack1, transferSlot, transferSlot + 1, false)) {
+                                            if (!this.mergeItemStack(
+                                                    itemstack1,
+                                                    transferSlot,
+                                                    transferSlot + 1,
+                                                    false)) {
                                                 return null;
                                             }
                                         } else
@@ -212,12 +216,21 @@ public class ContainerPlayerExpanded extends Container {
                                                 if (itemstack.stackSize > 1) {
                                                     ItemStack singleItem = itemstack.copy();
                                                     singleItem.stackSize = 1;
-                                                    if (!this.mergeItemStack(singleItem, transferSlot, transferSlot + 1, false)) return null;
+                                                    if (!this.mergeItemStack(
+                                                            singleItem,
+                                                            transferSlot,
+                                                            transferSlot + 1,
+                                                            false))
+                                                        return null;
                                                     else if (--itemstack1.stackSize == 0) {
                                                         ((Slot) this.inventorySlots.get(transferSlot)).putStack(null);
                                                     }
                                                 }
-                                                if (!this.mergeItemStack(itemstack1, transferSlot, transferSlot + 1, false)) {
+                                                if (!this.mergeItemStack(
+                                                        itemstack1,
+                                                        transferSlot,
+                                                        transferSlot + 1,
+                                                        false)) {
                                                     return null;
                                                 }
                                             } else
